@@ -44,6 +44,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "autocfg"
+version = "1.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ace50bade8e6234aa140d9a2f552bbee1db4d353f69b8217bc503490fc1a9f26"
+
+[[package]]
 name = "backtrace"
 version = "0.3.69"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -117,9 +123,9 @@ dependencies = [
 
 [[package]]
 name = "either"
-version = "1.9.0"
+version = "1.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a26ae43d7bcc3b814de94796a5e736d4029efb0ee900c12e2d54c993ad1a1e07"
+checksum = "48c757948c5ede0e46177b7add2e67155f70e33c07fea8284df6576da70b3719"
 
 [[package]]
 name = "equivalent"
@@ -224,18 +230,20 @@ checksum = "9c198f91728a82281a64e1f4f9eeb25d82cb32a5de251c6bd1b5154d63a8e7bd"
 
 [[package]]
 name = "llvm-ir"
-version = "0.10.0"
-source = "git+https://github.com/cdisselkoen/llvm-ir/?branch=main#a624696494fa57dc526dcea52c3dc91ff861d76d"
+version = "0.11.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a44e38b5a8002de59bc4c5717f5f07dcf8f132d1281bb7be1befdeda1b943438"
 dependencies = [
  "either",
  "llvm-sys",
  "log",
+ "ordered-float",
 ]
 
 [[package]]
 name = "llvm-ir-analysis"
-version = "0.3.2"
-source = "git+https://github.com/dfordivam/llvm-ir-analysis?branch=llvm-17#1d00cbd2d554d5ab675a57c953229c9994c71870"
+version = "0.4.1"
+source = "git+https://github.com/dfordivam/llvm-ir-analysis?branch=llvm-18#66b47834abf21335b5156b8a54ed501496ccbedf"
 dependencies = [
  "either",
  "llvm-ir",
@@ -245,9 +253,9 @@ dependencies = [
 
 [[package]]
 name = "llvm-sys"
-version = "170.0.1"
+version = "181.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eed90f72df5504c0af2e3a08ee7762a4a3e42ec2605811fc19f64879de40c50a"
+checksum = "d320f9d2723c97d4b78f9190a61ed25cc7cfbe456668c08e6e7dd8e50ceb8500"
 dependencies = [
  "anyhow",
  "cc",
@@ -279,12 +287,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "num-traits"
+version = "0.2.19"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "071dfc062690e90b734c0b2273ce72ad0ffa95f0c74596bc250dcfd960262841"
+dependencies = [
+ "autocfg",
+]
+
+[[package]]
 name = "object"
 version = "0.32.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a6a622008b6e321afc04970976f62ee297fdbaa6f95318ca343e3eebb9648441"
 dependencies = [
  "memchr",
+]
+
+[[package]]
+name = "ordered-float"
+version = "4.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7bb71e1b3fa6ca1c61f383464aaf2bb0e2f8e772a1f01d486832464de363b951"
+dependencies = [
+ "num-traits",
 ]
 
 [[package]]
