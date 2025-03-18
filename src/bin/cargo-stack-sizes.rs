@@ -2,6 +2,7 @@
 
 use std::str::FromStr;
 use std::{env, fs, process::Command, time::SystemTime};
+use std::path::Path;
 
 use cargo_project::{Artifact, Profile, Project};
 use clap::{App, AppSettings, Arg, ArgMatches};
@@ -160,8 +161,30 @@ fn run(matches: &ArgMatches) -> Result<(), failure::Error> {
 
     let meta = rustc_version::version_meta()?;
     let host = meta.host;
-    let target_dir = target.map(|s| s.strip_suffix(".json").unwrap_or(s));
-    let path = project.path(artifact, profile, target_dir, &host)?;
+
+    // Handle target json files, by keeping only the name of the file
+    let target_dir_name = target.map(|s| {
+        let path = Path::new(s);
+        path.file_stem().unwrap_or_default().to_string_lossy().into_owned()
+    });
+
+    // Manually build the path, as "project.path" fails to work properly
+    // and it is fairly trivial to build it ourselves
+    let mut path = project.target_dir().to_path_buf();
+    if let Some(target) = target_dir_name {
+        path.push(target);
+    }
+    match profile {
+        Profile::Dev => path.push("debug"),
+        Profile::Release => path.push("release"),
+        Profile::__HIDDEN__ => unreachable!(),
+    }
+    match artifact {
+        Artifact::Bin(bin) => {
+            path.push(bin);
+        }
+        _ => {}
+    }
 
     // find the object file
     let mut obj = None;
